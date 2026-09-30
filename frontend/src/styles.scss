@@ -1,0 +1,148 @@
+// ---------------------------------------------------------------------------
+// COMPET LAB — design tokens
+//
+// Direction: an operator's desk for a football league, not a fan-facing
+// sports-media site. Dark turf-at-night base, chalk text, a restrained
+// gold accent (scoreboard / match-sheet), and a muted pitch green used
+// sparingly for exactly one thing: the promotion zone on the standings
+// table. No gradients, no grass texture, no ball icons.
+// ---------------------------------------------------------------------------
+:root {
+  --cl-color-bg: #10140f;
+  --cl-color-surface: #171b14;
+  --cl-color-surface-alt: #1f2419;
+  --cl-color-border: #2b3324;
+  --cl-color-text: #e9e6dc;
+  --cl-color-text-muted: #8f9784;
+
+  --cl-color-accent: #c99a3f;       // primary interactive (scoreboard gold)
+  --cl-color-accent-ink: #1a1506;    // text on top of the accent fill
+  --cl-color-pitch: #4f8f64;         // used only for the promotion-zone marker
+  --cl-color-danger: #b3503f;
+  --cl-color-warning: #c99a3f;
+  --cl-color-success: #4f8f64;
+
+  --cl-radius: 4px;
+  --cl-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--cl-font);
+  background: var(--cl-color-bg);
+  color: var(--cl-color-text);
+}
+
+button, input, select {
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--cl-color-border);
+  background: var(--cl-color-surface-alt);
+  color: var(--cl-color-text);
+  border-radius: var(--cl-radius);
+  padding: 0.5rem 0.9rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--cl-color-accent);
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--cl-color-accent);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: var(--cl-color-accent);
+  color: var(--cl-color-accent-ink);
+  border-color: var(--cl-color-accent);
+  font-weight: 600;
+}
+
+input, select {
+  background: var(--cl-color-bg);
+  color: var(--cl-color-text);
+  border: 1px solid var(--cl-color-border);
+  border-radius: var(--cl-radius);
+  padding: 0.45rem 0.6rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--cl-color-border);
+}
+
+th {
+  color: var(--cl-color-text-muted);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+// Scoreboard treatment for numeric columns: tabular figures so digits
+// align vertically, a touch heavier than body text. Applied via a class
+// rather than a blanket numeric-column selector, since not every <td>
+// with a digit is a "score".
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+// A card reads as an official sheet, not a SaaS panel: a thin top rule
+// in the accent colour instead of a drop shadow, tighter corners.
+.card {
+  background: var(--cl-color-surface);
+  border: 1px solid var(--cl-color-border);
+  border-top: 2px solid var(--cl-color-accent);
+  border-radius: var(--cl-radius);
+  padding: 1.25rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge.high { background: rgba(179, 80, 63, 0.16); color: var(--cl-color-danger); }
+.badge.medium { background: rgba(201, 154, 63, 0.16); color: var(--cl-color-warning); }
+.badge.ok { background: rgba(79, 143, 100, 0.24); color: #7cb894; }
+
+.error-banner {
+  background: rgba(179, 80, 63, 0.12);
+  border: 1px solid var(--cl-color-danger);
+  color: #e2a99c;
+  border-radius: var(--cl-radius);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+// The one deliberate, sport-specific gesture in the whole app: a thin
+// green rule on the left edge of a table row, marking the promotion
+// zone on the standings table. Nothing else in the UI uses this motif.
+tr.promotion-zone td:first-child {
+  box-shadow: inset 3px 0 0 var(--cl-color-pitch);
+}
